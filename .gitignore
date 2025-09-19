@@ -3,11 +3,8 @@ output
 instant_test_output
 inference_test_output
 
-
-*.png
 *.json
 *.diff
-*.jpg
 *.pdf
 *.save
 *.pth
@@ -59,4 +56,4 @@ _darcs
 /archived
 output_*/
 
-
+wandb/

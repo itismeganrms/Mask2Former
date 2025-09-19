@@ -21,6 +21,7 @@ from collections import OrderedDict
 from typing import Any, Dict, List, Set
 
 import torch
+import wandb
 
 import detectron2.utils.comm as comm
 from detectron2.checkpoint import DetectionCheckpointer
@@ -58,6 +59,17 @@ from mask2former import (
     add_maskformer2_config,
 )
 import random
+
+run = wandb.init(
+    entity="universiteitleiden",
+    project="master-thesis-dragonfly",
+    tags=["Mask2Former", "annotated-images", "4-part-annotated" ],
+    config={
+        "architecture": "Mask2Former",
+    },
+    sync_tensorboard=True
+)
+
 
 class Trainer(DefaultTrainer):
     """
@@ -284,27 +296,25 @@ def register_custom_coco_dataset(args) -> None:
    exp_id = args.exp_id
    annotations_path = os.path.join(dataset_path, "annotations/")
    register_coco_instances(
-       f"lifeplan_{exp_id}_train",
+       f"dragonfly_{exp_id}_train",
        {},
-       os.path.join(annotations_path, "instances_train2017.json"),
-       os.path.join(dataset_path, "train2017"),
+       os.path.join(annotations_path, "instances_train.json"),
+       os.path.join(dataset_path, "train"),
    )
    if args.eval_only:
     register_coco_instances(
-        f"lifeplan_{exp_id}_test",
+        f"dragonfly_{exp_id}_test",
         {},
-       os.path.join(annotations_path, "instances_test2017.json"),
-       os.path.join(dataset_path, "test2017"), ## NOTE: we generally do not want to test on the tiled test set
+       os.path.join(annotations_path, "instances_test.json"),
+       os.path.join(dataset_path, "test"), ## NOTE: we generally do not want to test on the tiled test set
     )
    else: 
     register_coco_instances(
-        f"lifeplan_{exp_id}_valid",
+        f"dragonfly_{exp_id}_valid",
         {},
-        os.path.join(annotations_path, "instances_val2017.json"),
-        os.path.join(dataset_path, "val2017"),
+        os.path.join(annotations_path, "instances_val.json"),
+        os.path.join(dataset_path, "valid"),
     )
-
-
 
 def setup(args):
     """
@@ -312,8 +322,8 @@ def setup(args):
     """
     register_custom_coco_dataset(args)
     cfg = get_cfg()
-    cfg.DATASETS.TRAIN = (f"lifeplan_{args.exp_id}_train",)
-    cfg.DATASETS.TEST = (f"lifeplan_{args.exp_id}_valid",)
+    cfg.DATASETS.TRAIN = (f"dragonfly_{args.exp_id}_train",)
+    cfg.DATASETS.TEST = (f"dragonfly_{args.exp_id}_valid",)
     # for poly lr schedule
     add_deeplab_config(cfg)
     add_maskformer2_config(cfg)

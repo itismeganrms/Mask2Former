@@ -202,6 +202,9 @@ class MaskFormer(nn.Module):
             if "instances" in batched_inputs[0]:
                 gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
                 targets = self.prepare_targets(gt_instances, images)
+                for t in targets:
+                    if "labels" in t:
+                        t["labels"] = t["labels"] - 1
             else:
                 targets = None
 
