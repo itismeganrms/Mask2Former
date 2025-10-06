@@ -30,6 +30,7 @@ TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
 python train_net.py --num-gpus 1 \
 --exp_id ${TILE_SIZE} \
+--train_iter 20000 \
 --config-file /home/mrajaraman/master-thesis-dragonfly/external/mask2former-dragonfly/configs/lifeplan/instance-segmentation/maskformer2_R50_bs16_50ep.yaml \
 --dataset_path /home/mrajaraman/dataset/coco-roboflow/ \
 OUTPUT_DIR output_${TILE_SIZE}_dragonfly_${TIMESTAMP} \
