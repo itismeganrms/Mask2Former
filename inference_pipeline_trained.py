@@ -48,18 +48,28 @@ cfg.freeze()
 predictor = DefaultPredictor(cfg)
 # DetectionCheckpointer(predictor.model).load("/home/mrajaraman/Code/model_checkpoints/model_final_mask2former.pth")
 
-DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/mask2former-dragonfly/output_512_dragonfly_2025-09-22_01-59-38/model_0004884.pth")
-# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/mask2former-dragonfly/output_512_dragonfly_2025-09-22_01-59-38/model_0009769.pth")
-# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/mask2former-dragonfly/output_512_dragonfly_2025-09-22_01-59-38/model_0014654.pth")
-# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/mask2former-dragonfly/output_512_dragonfly_2025-09-22_01-59-38/model_final.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/mask2former-dragonfly/output_512_dragonfly_2025-10-02_01-01-28/model_final.pth")
+DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/mask2former-dragonfly/output_512_dragonfly_2025-10-02_01-01-28/model_0011999.pth")
+
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0001499.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0002999.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0004499.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0005999.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0007499.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0008999.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0010499.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0011999.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0013499.pth")
+# DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_0014999.pth")
+DetectionCheckpointer(predictor.model).load("/home/mrajaraman/master-thesis-dragonfly/external/maskdino-dragonfly/output_512_dragonfly_2025-10-02_01-07-38/model_final.pth")
 print("Model loaded successfully.") 
-category_mapping={"0": "head", "1": "torso", "2": "tail", "3": "wings"}
+category_mapping={"0": "wings", "1": "head", "2": "thorax", "3": "abdomen"}
 
 # detectron2 category mapping
 category_names = list(category_mapping.values())
 image = np.array(cv2.imread('/home/mrajaraman/dataset/originals/img_1458477504.jpg', cv2.IMREAD_COLOR))
 
-model_name="model_0004884"
+model_name="model_final"
 print("Inference done on {}", model_name)
 
 prediction_result = predictor(image)
